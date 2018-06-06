@@ -22,14 +22,59 @@
 /* Function prototypes */
 void applyOperator(char op, Stack<Rational> & operandStack);
 void helpCommand();
+Rational stringToRational(std::string line);
 
 int main() {
-    
-    
-    
-    
-    
+    std::cout << "RPN Calculator Simulation (type H for help)" << std::endl;
+    Stack<Rational> operandStack;;
+    while (true) {
+        std::cout << "> ";
+        std::string line;
+        getline(std::cin, line);
+        if (line.length() == 0) line = "Q";
+        char ch = toUpperCase(line[0]);
+        if (ch == 'Q') {
+            break;
+        } else if (ch == 'C') {
+            operandStack.clear();
+        } else if (ch == 'H') {
+            helpCommand();
+        } else if (isdigit(ch)) {
+            operandStack.push(stringToRational(line));
+        } else {
+            applyOperator(ch, operandStack);
+        }
+    }
     return 0;
+}
+
+/*
+ Function: applyOperator
+ Usage: applyOperator(ap, operandStack);
+ ---------------------------------------
+ This function applies the operator to the top two elements
+ on the operand stack. Because the elements on the stack are popped
+ in reverse order, the right operand is popped before the left operand.
+ */
+void applyOperator(char op, Stack<Rational> & operandStack) {
+    Rational result;
+    Rational rhs = operandStack.pop();
+    Rational lhs = operandStack.pop();
+    
+    switch (op) {
+        case '+':
+            result = lhs + rhs; break;
+        case '-':
+            result = lhs + rhs; break;
+        case '*':
+            result = lhs * rhs; break;
+        case '/':
+            result = lhs / rhs; break;
+        default:
+            error("Illegal operator.");
+    }
+    std::cout << result << std::endl;
+    operandStack.push(result);
 }
 
 /*
@@ -48,4 +93,19 @@ void helpCommand() {
     std::cout << "  Q -- Quit the program" << std::endl;
     std::cout << "  H -- Display this help message" << std::endl;
     std::cout << "  C -- Clear the calculator stack" << std::endl;
+}
+
+Rational stringToRational(std::string line) {
+    int ratNum;
+    int ratDen;
+    std::string divisor = "/";
+    std::string::size_type divIndex;
+    if ((divIndex = line.find(divisor)) != std::string::npos) {
+        ratNum = stringToInteger(line.substr(0, divIndex));
+        ratDen = stringToInteger(line.substr(divIndex + 1, line.length() - divIndex));
+    } else {
+        ratNum = stringToInteger(line);
+        ratDen = 1;
+    }
+    return Rational(ratNum, ratDen);
 }
