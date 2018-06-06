@@ -246,10 +246,10 @@
 		7731AF1D20C7686E0058D815 /* ex6_8 */ = {
 			isa = PBXGroup;
 			children = (
+				7731AF1E20C7686F0058D815 /* main.cpp */,
 				7731AFE220C773430058D815 /* rational.cpp */,
 				7731AFE320C773430058D815 /* rational.hpp */,
 				7731AFE420C773430058D815 /* rationalpriv.h */,
-				7731AF1E20C7686F0058D815 /* main.cpp */,
 			);
 			path = ex6_8;
 			sourceTree = "<group>";
