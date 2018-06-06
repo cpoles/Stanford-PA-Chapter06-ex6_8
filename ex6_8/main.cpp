@@ -95,6 +95,13 @@ void helpCommand() {
     std::cout << "  C -- Clear the calculator stack" << std::endl;
 }
 
+
+/*
+ Function: stringToRational
+ Usage: Rational rat = stringToRational(line);
+ ---------------------
+ This function converts a valid line into a Rational number
+ */
 Rational stringToRational(std::string line) {
     int ratNum;
     int ratDen;
